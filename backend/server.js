@@ -27,7 +27,7 @@ const connectDB = async () => {
 // Connect Backend to MongoDB
 connectDB()
 
-// Make the upload folder static
+// Make the upload folder static, Add new docs
 const __dirname = path.resolve()
 
 // Initialize the Routes
