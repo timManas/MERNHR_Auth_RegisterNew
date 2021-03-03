@@ -12,4 +12,12 @@ router.get(
   })
 )
 
+router.get(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const product = await Product.findOne({ _id: req.params.id })
+    res.json(product)
+  })
+)
+
 export default router
