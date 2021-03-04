@@ -8,18 +8,25 @@ import {
 
 export const login = (email, password) => async (dispatch) => {
   try {
-    dispatch({ type: USER_LOGIN_REQUEST })
+    dispatch({
+      type: USER_LOGIN_REQUEST,
+    })
 
+    // When sending data, we want to send header of content type to JSON
     const config = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     }
 
+    // Send POST request of user by username/password
     const { data } = await axios.post(
       '/api/users/login',
       { email, password },
       config
     )
 
+    // Dispatch and send to Reducer
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
@@ -28,6 +35,7 @@ export const login = (email, password) => async (dispatch) => {
     // Set data to localstorage
     localStorage.setItem('userInfo', JSON.stringify(data))
   } catch (error) {
+    // If fetching data was not succesful
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
@@ -36,4 +44,11 @@ export const login = (email, password) => async (dispatch) => {
           : error.message,
     })
   }
+}
+
+export const logout = () => (dispatch) => {
+  // removes userinfo from storage
+  localStorage.removeItem('userInfo')
+
+  dispatch({ type: USER_LOGOUT }) // Log user out and send to state
 }
