@@ -32,6 +32,7 @@ userSchema.methods.matchPassword = async function (enteredPassowrd) {
 }
 
 userSchema.pre('save', async function (next) {
+  // ONLY DO THIS IF PASSWORD FIELD IS SENT OR MODIFIED
   if (!this.isModified('password')) {
     next()
   }
